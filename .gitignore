@@ -10,6 +10,7 @@ __pycache__/
 venv/
 env/
 myenv/
+balu/
 .balu/ # if you use a custom virtual environment directory
 
 # Environment variables
