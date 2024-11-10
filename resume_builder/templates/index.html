@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Resume Builder</h1>
+        <form id="resumeForm">
+            <label for="job_description">Job Description:</label>
+            <textarea id="job_description" name="job_description" placeholder="Enter job description here..." required></textarea>
+            <button type="submit">Generate Resume</button>
+        </form>
+        <h3>Generated Resume:</h3>
+        <textarea id="resume-output" readonly placeholder="Your generated resume will appear here..."></textarea>
+        <form id="downloadForm" method="POST" action="/download_pdf" target="_blank">
+            <input type="hidden" name="job_description" id="hidden-job-description">
+            <button type="submit">Download as PDF</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById("resumeForm").onsubmit = async function(event) {
+            event.preventDefault();
+
+            const jobDescription = document.getElementById("job_description").value;
+            document.getElementById("hidden-job-description").value = jobDescription;
+
+            const response = await fetch("/generate_resume", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({ job_description: jobDescription })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                document.getElementById("resume-output").value = result.resume;
+            } else {
+                document.getElementById("resume-output").value = result.error;
+            }
+        };
+    </script>
+</body>
+</html>
