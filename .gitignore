@@ -1,0 +1,38 @@
+
+---
+
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+env/
+venv/
+ENV/
+
+# MacOS
+.DS_Store
+
+# Logs
+*.log
+
+# Virtual environment
+.venv/
+.venv/bin/
+.venv/lib/
+
+# IDE-specific
+.vscode/
+.idea/
+
+# Pytest
+.cache/
+.tox/
+
+# Config Files
+*.ini
+*.cfg
+
+
