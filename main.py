@@ -10,11 +10,13 @@ class AIToolkitApp:
         self.root = root
         self.root.title("AI Toolkit")
         self.root.geometry("800x600")
+        self.root.configure(bg="#1a1a2e")  # Set consistent background color
+
+        # Create a dictionary to hold frames
         self.frames = {}
 
-        # Define tools and their respective classes
+        # Create frames for each tool
         tools = {
-            "Home": None,
             "Vision Extractor": VisionExtractor,
             "Audio Translation": AudioTranslation,
             "Resume Builder": ResumeBuilder,
@@ -22,104 +24,64 @@ class AIToolkitApp:
             "Grammar Fixer": GrammarFixer,
         }
 
-        # Initialize frames
         for tool_name, tool_class in tools.items():
-            frame = tk.Frame(root)
+            frame = tk.Frame(self.root, bg="#1a1a2e")
             self.frames[tool_name] = frame
-
-            if tool_name == "Home":
-                self.setup_home(frame)
-            else:
-                tool_class(frame, self.show_frame)  # Pass the show_frame method
-
+            tool_class(frame, self.show_frame)
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame("Home")  # Show the Home frame initially
+        # Add the home screen
+        self.setup_home()
+        self.frames["Home"].grid(row=0, column=0, sticky="nsew")
+        self.show_frame("Home")
 
     def show_frame(self, name):
         """Raise the specified frame to the top."""
         frame = self.frames[name]
         frame.tkraise()
 
-    def setup_home(self, frame):
-        """Set up the Home screen."""
-        tk.Label(frame, text="Welcome to the AI Toolkit!", font=("Arial", 18)).pack(pady=20)
-        tools = ["Vision Extractor", "Audio Translation", "Resume Builder", "Question Generator", "Grammar Fixer"]
+    def setup_home(self):
+        """Set up the Home screen with buttons linking to other tools."""
+        frame = tk.Frame(self.root, bg="#1a1a2e")
+        self.frames["Home"] = frame
 
-        for tool in tools:
-            tk.Button(frame, text=tool, command=lambda t=tool: self.show_frame(t), width=25).pack(pady=10)
+        # Header
+        tk.Label(
+            frame,
+            text="Welcome to the AI Toolkit!",
+            font=("Arial", 18, "bold"),
+            fg="white",
+            bg="#e94560",  # Red header background
+            padx=10,
+            pady=10,
+        ).pack(pady=20)
+
+        # Buttons for each tool
+        tools = [
+            ("Vision Extractor", "Vision Extractor"),
+            ("Audio Translation", "Audio Translation"),
+            ("Resume Builder", "Resume Builder"),
+            ("Question Generator", "Question Generator"),
+            ("Grammar Fixer", "Grammar Fixer"),
+        ]
+
+        for tool_name, tool_key in tools:
+            tk.Button(
+                frame,
+                text=tool_name,
+                command=lambda t=tool_key: self.show_frame(t),  # Navigate to the corresponding frame
+                width=25,
+                font=("Arial", 12, "bold"),
+                bg="white",
+                fg="#e94560",  # Red text color
+                activebackground="#f0f0f0",  # Light background on hover
+                activeforeground="#e94560",
+                relief="flat",  # Flat style for a cleaner look
+                bd=0,  # Remove border
+            ).pack(pady=10)
 
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     root = tk.Tk()
     app = AIToolkitApp(root)
     root.mainloop()
-# import tkinter as tk
-# from vision_extractor import VisionExtractor
-# from audio_translation import AudioTranslation
-# from resume_builder import ResumeBuilder
-# from question_generator import QuestionGenerator
-# from grammar_fixer import GrammarFixer
-
-
-# class AIToolkitApp:
-#     def __init__(self, root):
-#         self.root = root
-#         self.root.title("AI Toolkit")
-#         self.root.geometry("800x600")
-#         self.frames = {}
-
-#         # Define tools and their respective classes
-#         tools = {
-#             "Home": None,
-#             "Vision Extractor": VisionExtractor,
-#             "Audio Translation": AudioTranslation,
-#             "Resume Builder": ResumeBuilder,
-#             "Question Generator": QuestionGenerator,
-#             "Grammar Fixer": GrammarFixer,
-#         }
-
-#         # Initialize frames
-#         for tool_name, tool_class in tools.items():
-#             frame = tk.Frame(root)
-#             self.frames[tool_name] = frame
-
-#             if tool_name == "Home":
-#                 self.setup_home(frame)
-#             elif tool_class is not None:
-#                 try:
-#                     # Initialize tool classes with frame and show_frame
-#                     tool_class(frame, self.show_frame)
-#                 except TypeError:
-#                     # Fallback for tools requiring only a frame
-#                     tool_class(frame)
-
-#             frame.place(relwidth=1, relheight=1)
-
-#         # Show the Home frame initially
-#         self.show_frame("Home")
-
-#     def show_frame(self, name):
-#         """Raise the specified frame to the top and hide others."""
-#         for frame_name, frame in self.frames.items():
-#             if frame_name == name:
-#                 frame.lift()
-#                 frame.pack(fill="both", expand=True)
-#             else:
-#                 frame.pack_forget()
-
-#     def setup_home(self, frame):
-#         """Set up the Home screen."""
-#         tk.Label(frame, text="Welcome to the AI Toolkit!", font=("Arial", 18)).pack(pady=20)
-#         tools = ["Vision Extractor", "Audio Translation", "Resume Builder", "Question Generator", "Grammar Fixer"]
-
-#         # Create buttons for available tools
-#         for tool in tools:
-#             if tool in self.frames:
-#                 tk.Button(frame, text=tool, command=lambda t=tool: self.show_frame(t), width=25).pack(pady=10)
-
-
-# if __name__ == "__main__":
-#     root = tk.Tk()
-#     app = AIToolkitApp(root)
-#     root.mainloop()

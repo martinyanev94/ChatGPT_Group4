@@ -14,23 +14,110 @@ class ResumeBuilder:
         self.setup_ui()
 
     def setup_ui(self):
-        tk.Label(self.frame, text="Resume Builder", font=("Arial", 18, "bold")).pack(pady=20)
-        tk.Label(self.frame, text="Enter Job Description:").pack()
-        self.job_description_input = tk.Text(self.frame, height=5, width=50)
+        # Consistent background color
+        frame_bg = "#1a1a2e"  # Dark blue
+        label_fg = "white"    # White text color for labels
+
+        # Header
+        tk.Label(
+            self.frame,
+            text="Resume Builder",
+            font=("Arial", 18, "bold"),
+            bg=frame_bg,
+            fg=label_fg
+        ).pack(pady=20)
+
+        # Job Description Label
+        tk.Label(
+            self.frame,
+            text="Enter Job Description:",
+            bg=frame_bg,
+            fg=label_fg
+        ).pack()
+
+        # Job Description Text Input
+        self.job_description_input = tk.Text(
+            self.frame,
+            height=5,
+            width=50,
+            bg="white",   # White input background
+            fg="black"    # Black text color for input
+        )
         self.job_description_input.pack(pady=10)
-        tk.Button(self.frame, text="Generate Resume", command=self.generate_resume).pack(pady=10)
-        tk.Label(self.frame, text="Generated Resume:").pack()
-        self.resume_output = tk.Text(self.frame, height=15, width=50)
+
+        # Generate Resume Button
+        tk.Button(
+            self.frame,
+            text="Generate Resume",
+            command=self.generate_resume,
+            bg="white",
+            fg="#e94560",  # Red text for contrast
+            activebackground="#f0f0f0",
+            activeforeground="#e94560",
+            relief="flat",
+            bd=0,
+        ).pack(pady=10)
+
+        # Generated Resume Label
+        tk.Label(
+            self.frame,
+            text="Generated Resume:",
+            bg=frame_bg,
+            fg=label_fg
+        ).pack()
+
+        # Generated Resume Text Output
+        self.resume_output = tk.Text(
+            self.frame,
+            height=15,
+            width=50,
+            bg="white",   # White output background
+            fg="black"    # Black text color for output
+        )
         self.resume_output.pack(pady=10)
-        button_frame = tk.Frame(self.frame)
+
+        # Button Frame
+        button_frame = tk.Frame(self.frame, bg=frame_bg)
         button_frame.pack(pady=10)
-        tk.Button(button_frame, text="Save Resume", command=self.save_resume).grid(row=0, column=0, padx=5)
-        tk.Button(button_frame, text="Clear", command=self.clear_all).grid(row=0, column=1, padx=5)
-         # Back to Home Button
-        tk.Button(self.frame, text="Back to Home", command=lambda: self.show_home_callback("Home")).pack(pady=20)
 
+        # Save Resume Button
+        tk.Button(
+            button_frame,
+            text="Save Resume",
+            command=self.save_resume,
+            bg="white",
+            fg="#e94560",
+            activebackground="#f0f0f0",
+            activeforeground="#e94560",
+            relief="flat",
+            bd=0,
+        ).grid(row=0, column=0, padx=5)
 
+        # Clear Button
+        tk.Button(
+            button_frame,
+            text="Clear",
+            command=self.clear_all,
+            bg="white",
+            fg="#e94560",
+            activebackground="#f0f0f0",
+            activeforeground="#e94560",
+            relief="flat",
+            bd=0,
+        ).grid(row=0, column=1, padx=5)
 
+        # Back to Home Button
+        tk.Button(
+            self.frame,
+            text="Back to Home",
+            command=lambda: self.show_home_callback("Home"),
+            bg="white",
+            fg="#e94560",
+            activebackground="#f0f0f0",
+            activeforeground="#e94560",
+            relief="flat",
+            bd=0,
+        ).pack(pady=20)
 
     def generate_resume(self):
         job_description = self.job_description_input.get("1.0", "end-1c").strip()
