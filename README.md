@@ -53,5 +53,5 @@ export OPENAI_API_KEY="your-api-key"
 3.Run the application:
 
     ```bash
-     python3 main.py
+   python3 main.py
     ```
