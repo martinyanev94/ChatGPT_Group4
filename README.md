@@ -35,7 +35,7 @@ The **AI Toolkit** is a desktop application built with Python and Tkinter, lever
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repository/ai-toolkit.git
+   git clone https://github.com/martinyanev94/ChatGPT_Group4.git
    cd ai-toolkit
 
 
@@ -53,5 +53,5 @@ export OPENAI_API_KEY="your-api-key"
 3.Run the application:
 
     ```bash
-    export python3 main.py
+     python3 main.py
     ```
