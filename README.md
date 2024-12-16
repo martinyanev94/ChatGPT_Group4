@@ -36,7 +36,7 @@ The **AI Toolkit** is a desktop application built with Python and Tkinter, lever
 1. Clone the repository:
    ```bash
    git clone https://github.com/martinyanev94/ChatGPT_Group4.git
-   cd ai-toolkit
+   cd ChatGPT_Group4
 
 
 1. **Install required dependencies**:
